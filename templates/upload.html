@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h1>wp2tumblr &ndash; Wordpress to Tumblr</h1>
+
+    <div>Blog: {{ bloginfo['blog']['title'] }}</div>
+    <div>URL: {{ bloginfo['blog']['url'] }}</div>
+
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <div>
+            <label for="tumblog_name">Wordpress export XML file</label>
+            <input type="file" name="wordpress_xml" />
+            <input type="hidden" name="tumblog_name" value="{{ tumblog_name }}" />
+        </div>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock %}

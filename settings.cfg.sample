@@ -1,0 +1,6 @@
+# get your consumer keys from http://www.tumblr.com/oauth/apps
+TUMBLR_CONSUMER_KEY = 'key goes here'
+TUMBLR_CONSUMER_SECRET = 'key goes here'
+
+DEBUG = True
+SECRET_KEY = 'development'
