@@ -79,7 +79,7 @@ def before_request():
 
 @app.route('/login')
 def login():
-    return tumblr.authorize()
+    return tumblr_oauth.authorize()
 
 
 @app.route('/logout')
