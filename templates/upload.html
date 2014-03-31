@@ -1,19 +1,24 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1>wp2tumblr &ndash; Wordpress to Tumblr</h1>
+    <h1><span class="muted">Import into:</span> {{ bloginfo['blog']['title'] }}</h1>
 
-    <div>Blog: {{ bloginfo['blog']['title'] }}</div>
-    <div>URL: {{ bloginfo['blog']['url'] }}</div>
+    <div class="minor-info">Blog URL: {{ bloginfo['blog']['url'] }}</div>
+
+    <div class="instructions">
+        Please select the Wordpress export XML file you'd like to import. Visit Wordpress.org for more information about <a href="http://en.support.wordpress.com/export/">exporting a Wordpress blog</a>.
+    </div>
 
     <form method="post" action="/upload" enctype="multipart/form-data">
         <div>
-            <label for="tumblog_name">Wordpress export XML file</label>
             <input type="file" name="wordpress_xml" />
-            <input type="hidden" name="tumblog_name" value="{{ tumblog_name }}" />
         </div>
 
         <div>
-            <button type="submit">Submit</button>
+            <input type="hidden" name="tumblog_name" value="{{ tumblog_name }}" />
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+
         </div>
     </form>
+
+    <div class="go-back"><a href="{{ url_for('index') }}">Go back and start over</a></div></div>
 {% endblock %}

@@ -3,10 +3,16 @@
     <h1>wp2tumblr &ndash; Wordpress to Tumblr</h1>
 
     {% if userinfo %}
-        {% for blog in userinfo['user']['blogs'] %}
-            <div><a href="/upload?tumblog_name={{ blog['name'] }}">{{ blog['name'] }}</a></div>
-        {% endfor %}
+    	<div class="instructions">Choose which blog you'd like to import into:</div>
+    	<ul class="user-blogs">
+	        {% for blog in userinfo['user']['blogs'] %}
+	            <li><a href="/upload?tumblog_name={{ blog['name'] }}">{{ blog['name'] }}</a></li>
+	        {% endfor %}
+	    </ul>
+
+        <div class="go-back"><a href="/logout">Logout</a></div>
     {% else %}
-        <div><a href="/login">Sign in to Tumblr</a></div>
+    	<div class="instructions">First we'll need to connect wp2tumblr to your Tumblr account.</div>
+        <div><a href="/login" class="pure-button-primary pure-button">Connect to Tumblr</a></div>
     {% endif %}
 {% endblock %}

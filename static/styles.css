@@ -1,4 +1,105 @@
-html {
-	margin: 0;
-	padding: 0;
+a {
+    color: #0063a3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.muted {
+    color: #aaa;
+    font-weight: normal;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    padding: 20px;
+    background: #003363;
+    color: #cdf;
+}
+
+header h2 {
+    margin: 200px 0 0 0;
+    font-weight: normal;
+    font-size: 50px;
+}
+
+header .header-links a {
+    display: inline-block;
+    border: 2px solid #cdf;
+    color: #cdf;
+    padding: 5px 6px;
+    text-decoration: none;
+    border-radius: 2px
+}
+
+header .header-links a:hover {
+    border: 2px solid #eef;
+    color: #eef;
+}
+
+header .tagline {
+    margin: 0 0 20px 0;
+}
+
+header .header-copyright {
+    font-size: 10px;
+    margin: 20px 0 0;
+    color: #8ab;
+}
+
+header .header-copyright a {
+    color: #8ab;
+    text-decoration: none;
+}
+
+#wrapper {
+    margin-left: 340px;
+}
+
+#content {
+    padding: 20px;
+}
+
+.instructions {
+    font-size: 20px;
+    margin: 0 0 20px 0;
+}
+
+.user-blogs {
+    margin: ;
+}
+
+.go-back {
+    margin-top: 50px;
+}
+
+.minor-info {
+    background: #eee;
+    padding: 10px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -wekbit-border-radius: 10px;
+}
+
+
+.flash {
+    background: #cdf;
+    padding: 20px;
+    font-size: 15px;
+    color: #346;
 }

@@ -2,16 +2,31 @@
 <html>
     <head>
         <title>wp2tumblr &ndash; Wordpress to Tumblr</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
     </head>
 
     <body>
+        <header>
+            <h2>wp2tumblr</h2>
+            <div class="tagline">Import a Wordpress blog into Tumblr</div>
+            <div class="header-links">
+                <a href="https://github.com/jonthornton/wp2tumblr">Code on GitHub</a>
+                <a href="https://github.com/jonthornton/wp2tumblr/issues">Help</a>
+            </div>
+            <div class="header-copyright">
+                &copy; 2014 <a href="http://www.jonthornton.com">Jon Thornton</a> &hearts; New York, NY
+            </div>
+        </header>
         <div id="wrapper">
             {% for message in get_flashed_messages() %}
-                <div class=flash>{{ message }}</div>
+                <div class="flash">{{ message }}</div>
             {% endfor %}
 
-            {% block body %}{% endblock %}
+            <div id="content">
+                {% block body %}{% endblock %}
+            </div>
         </div>
+        <input type="text" /><button class="pure-button">Submit</button>
     </body>
 </html>

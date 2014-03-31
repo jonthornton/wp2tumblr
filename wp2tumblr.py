@@ -21,7 +21,7 @@ from flask_oauthlib.client import OAuth
 import pytumblr
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 app.config.from_envvar('WP2TUMBLR_SETTINGS')
 
 POST_STATES = {
