@@ -9,9 +9,6 @@
     :license: BSD, see LICENSE for more details.
 """
 
-CONSUMER_KEY = 'rzyK94iqoqxdRUli92sOH2WRpDAsKMFDJwQR88awxxtEkNMGma'
-CONSUMER_SECRET = 'PrGCyUHh5FxdRJCaew1UgDbgjcAJZsxhk35wK3q9swNqp6ptt2'
-
 import datetime
 from xml.dom import minidom
 # import types
