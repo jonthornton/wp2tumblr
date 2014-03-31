@@ -4,3 +4,4 @@ TUMBLR_CONSUMER_SECRET = 'key goes here'
 
 DEBUG = True
 SECRET_KEY = 'development'
+LOG_FILE = '/path/to/log_file.log'

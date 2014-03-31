@@ -2,3 +2,4 @@
 venv
 .Python
 *.cfg
+*.log

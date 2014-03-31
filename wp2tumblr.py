@@ -12,8 +12,10 @@
 CONSUMER_KEY = 'rzyK94iqoqxdRUli92sOH2WRpDAsKMFDJwQR88awxxtEkNMGma'
 CONSUMER_SECRET = 'PrGCyUHh5FxdRJCaew1UgDbgjcAJZsxhk35wK3q9swNqp6ptt2'
 
+import datetime
 from xml.dom import minidom
-import types
+# import types
+
 from flask import Flask
 from flask import g, session, request, url_for, flash
 from flask import redirect, render_template
@@ -105,19 +107,31 @@ def upload():
     if not tumblog_name:
         return redirect(url_for('index'))
 
+    bloginfo = g.tumblr.blog_info(tumblog_name)
+    if 'meta' in bloginfo and bloginfo['meta']['status'] != 200:
+        flash('Invalid blog name')
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         # try:
-        do_import(tumblog_name, request.files['wordpress_xml'])
+        post_count = do_import(tumblog_name, request.files['wordpress_xml'])
         # except Exception, detail:
         #     print 'XML file must be well-formed. You\'ll need to edit the file to fix the problem.'
         #     print detail
 
-        flash('Your Wordpress blog has been imported into %s!' % tumblog_name)
-        return redirect(url_for('index'))
+        if 'LOG_FILE' in app.config:
+            userinfo = g.tumblr.info()
 
-    bloginfo = g.tumblr.blog_info(tumblog_name)
-    if 'meta' in bloginfo and bloginfo['meta']['status'] != 200:
-        flash('Invalid blog name')
+            with open(app.config['LOG_FILE'], 'a') as f:
+                f.write('%s\t%s\t%s\t%s\t%d posts\n' % (
+                    datetime.datetime.now().isoformat(),
+                    userinfo['user']['name'],
+                    bloginfo['blog']['title'],
+                    bloginfo['blog']['url'],
+                    post_count)
+                );
+
+        flash('<strong>%d posts</strong> from your Wordpress blog have been imported into %s!' % (post_count, tumblog_name))
         return redirect(url_for('index'))
 
     return render_template('upload.html', bloginfo=bloginfo, tumblog_name=tumblog_name)
@@ -126,6 +140,7 @@ def upload():
 def do_import(tumblog_name, xml_file):
     dom = minidom.parse(xml_file)
 
+    post_count = 0
     for item in dom.getElementsByTagName('item'):
 
         # only import posts, not pages or other stuff
@@ -153,12 +168,16 @@ def do_import(tumblog_name, xml_file):
         post['body'] = item.getElementsByTagName('content:encoded')[0].firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace')
         print post["title"]
 
-        g.tumblr.create_text(tumblog_name,
-                            type=post['type'],
-                            title=post['title'],
-                            body=post['body'],
-                            date=post['date'],
-                            state=post['state'])
+        # g.tumblr.create_text(tumblog_name,
+        #                     type=post['type'],
+        #                     title=post['title'],
+        #                     body=post['body'],
+        #                     date=post['date'],
+        #                     state=post['state'])
+
+        post_count += 1
+
+    return post_count
 
 if __name__ == '__main__':
     app.run()
