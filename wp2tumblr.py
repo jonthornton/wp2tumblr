@@ -131,7 +131,7 @@ def upload():
                     post_count)
                 );
 
-        flash('<strong>%d posts</strong> from your Wordpress blog have been imported into %s!' % (post_count, tumblog_name))
+        flash('%d posts from your Wordpress blog have been imported into %s!' % (post_count, tumblog_name))
         return redirect(url_for('index'))
 
     return render_template('upload.html', bloginfo=bloginfo, tumblog_name=tumblog_name)
@@ -168,12 +168,12 @@ def do_import(tumblog_name, xml_file):
         post['body'] = item.getElementsByTagName('content:encoded')[0].firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace')
         print post["title"]
 
-        # g.tumblr.create_text(tumblog_name,
-        #                     type=post['type'],
-        #                     title=post['title'],
-        #                     body=post['body'],
-        #                     date=post['date'],
-        #                     state=post['state'])
+        g.tumblr.create_text(tumblog_name,
+                            type=post['type'],
+                            title=post['title'],
+                            body=post['body'],
+                            date=post['date'],
+                            state=post['state'])
 
         post_count += 1
 

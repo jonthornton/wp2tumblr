@@ -18,6 +18,8 @@ ul {
     font-weight: normal;
 }
 
+.hide { display: none; }
+
 header {
     position: fixed;
     top: 0;

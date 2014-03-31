@@ -4,21 +4,41 @@
 
     <div class="minor-info">Blog URL: {{ bloginfo['blog']['url'] }}</div>
 
-    <div class="instructions">
-        Please select the Wordpress export XML file you'd like to import. Visit Wordpress.org for more information about <a href="http://en.support.wordpress.com/export/">exporting a Wordpress blog</a>.
+    <div id="upload-container">
+        <div class="instructions">
+            Please select the Wordpress export XML file you'd like to import. Visit Wordpress.org for more information about <a href="http://en.support.wordpress.com/export/">exporting a Wordpress blog</a>.
+        </div>
+
+        <form method="post" action="/upload" enctype="multipart/form-data" id="upload-form">
+            <div>
+                <input type="file" name="wordpress_xml" />
+            </div>
+
+            <div>
+                <input type="hidden" name="tumblog_name" value="{{ tumblog_name }}" />
+                <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            </div>
+        </form>
     </div>
 
-    <form method="post" action="/upload" enctype="multipart/form-data">
-        <div>
-            <input type="file" name="wordpress_xml" />
-        </div>
+    <div id="upload-confirm" class="hide flash">
+        Your posts are being imported into Tumblr. This may take a few minutes.<br />
+        <span id="timer-container"></span>
+    </div>
 
-        <div>
-            <input type="hidden" name="tumblog_name" value="{{ tumblog_name }}" />
-            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+    <div class="go-back"><a href="{{ url_for('index') }}">Go back and start over</a></div>
 
-        </div>
-    </form>
+    <script>
+        $('#upload-form').on('submit', function(){
+            $('#upload-container').slideUp(200);
+            $('#upload-confirm').slideDown(200);
 
-    <div class="go-back"><a href="{{ url_for('index') }}">Go back and start over</a></div></div>
+            var start = new Date();
+            var tick = function() {
+                var seconds = Math.round((new Date() - start) / 1000)
+                $('#timer-container').text(seconds + " seconds");
+            };
+            setInterval(tick, 1000);
+        });
+    </script>
 {% endblock %}
