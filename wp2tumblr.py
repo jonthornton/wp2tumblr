@@ -126,7 +126,7 @@ def upload():
                     bloginfo['blog']['title'],
                     bloginfo['blog']['url'],
                     post_count)
-                );
+                )
 
         flash('%d posts from your Wordpress blog have been imported into %s!' % (post_count, tumblog_name))
         return redirect(url_for('index'))
@@ -142,10 +142,10 @@ def do_import(tumblog_name, xml_file):
 
         # only import posts, not pages or other stuff
         if item.getElementsByTagName('wp:post_type')[0].firstChild.nodeValue != 'post':
-            continue;
+            continue
 
         if len(item.getElementsByTagName('title')[0].childNodes) == 0:
-            continue;
+            continue
 
         post = {
             'type': 'text',
