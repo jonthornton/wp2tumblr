@@ -20,7 +20,7 @@ from flask_oauthlib.client import OAuth
 import pytumblr
 
 
-app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__)
 app.config.from_envvar('WP2TUMBLR_SETTINGS')
 
 POST_STATES = {
@@ -163,14 +163,16 @@ def do_import(tumblog_name, xml_file):
             continue
 
         post['body'] = item.getElementsByTagName('content:encoded')[0].firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace')
-        print post["title"]
 
-        g.tumblr.create_text(tumblog_name,
-                            type=post['type'],
-                            title=post['title'],
-                            body=post['body'],
-                            date=post['date'],
-                            state=post['state'])
+        if app.debug:
+            print post["title"]
+        else:
+            g.tumblr.create_text(tumblog_name,
+                                type=post['type'],
+                                title=post['title'],
+                                body=post['body'],
+                                date=post['date'],
+                                state=post['state'])
 
         post_count += 1
 
