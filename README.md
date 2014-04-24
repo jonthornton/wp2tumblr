@@ -17,7 +17,7 @@ This app is under active development and has minimal testing. Use at your own ri
 A hosted version of wp2tumblr is available at http://wp2tumblr.jonthornton.com. If you'd like to run your own copy, follow these steps:
 
 1. Clone the wp2tumblr repo.
-2. Visit http://www.tumblr.com/oauth/apps and register a new application. Set the default callback url to ```http://127.0.0.1:5000```. The rest of the fields can be filled in however you want.
+2. Visit http://www.tumblr.com/oauth/apps and register a new application. Set the default callback url to ```http://127.0.0.1:5000/oauthorized```. The rest of the fields can be filled in however you want.
 3. Copy settings.py.sample to settings.py and fill in your client keys.
 4. Export the path to the settings file: ```$ export WP2TUMBLR_SETTINGS=/path/to/settings.py```
 5. Install the required packages: ```$ pip install -r requirements.txt```
