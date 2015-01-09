@@ -164,14 +164,17 @@ def do_import(tumblog_name, xml_file):
 
         post['body'] = item.getElementsByTagName('content:encoded')[0].firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace')
 
+        post['tags'] = [x.firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace') for x in item.getElementsByTagName('category') if x.getAttribute('domain') == 'post_tag']
+
         if app.debug:
-            print post["title"]
+            print post
         else:
             g.tumblr.create_text(tumblog_name,
                                 type=post['type'],
                                 title=post['title'],
                                 body=post['body'],
                                 date=post['date'],
+                                tags=post['tags'],
                                 state=post['state'])
 
         post_count += 1
