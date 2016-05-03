@@ -101,6 +101,7 @@ def upload():
         return redirect(url_for('login'))
 
     tumblog_name = request.form.get('tumblog_name') or request.args.get('tumblog_name')
+    custom_tags = request.form.get('custom_tags') or request.args.get('custom_tags')
     if not tumblog_name:
         return redirect(url_for('index'))
 
@@ -111,7 +112,7 @@ def upload():
 
     if request.method == 'POST':
         # try:
-        post_count = do_import(tumblog_name, request.files['wordpress_xml'])
+        post_count = do_import(tumblog_name, request.files['wordpress_xml'], custom_tags)
         # except Exception, detail:
         #     print 'XML file must be well-formed. You\'ll need to edit the file to fix the problem.'
         #     print detail
@@ -134,7 +135,7 @@ def upload():
     return render_template('upload.html', bloginfo=bloginfo, tumblog_name=tumblog_name)
 
 
-def do_import(tumblog_name, xml_file):
+def do_import(tumblog_name, xml_file, custom_tags):
     dom = minidom.parse(xml_file)
 
     post_count = 0
@@ -165,6 +166,9 @@ def do_import(tumblog_name, xml_file):
         post['body'] = item.getElementsByTagName('content:encoded')[0].firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace')
 
         post['tags'] = [x.firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace') for x in item.getElementsByTagName('category') if x.getAttribute('domain') == 'post_tag']
+
+        if custom_tags:
+            post['tags'].append(custom_tags.encode('utf-8'))
 
         if app.debug:
             print post
