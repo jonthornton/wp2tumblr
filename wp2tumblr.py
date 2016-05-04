@@ -134,6 +134,14 @@ def upload():
 
     return render_template('upload.html', bloginfo=bloginfo, tumblog_name=tumblog_name)
 
+def parse_custom_tags(tags):
+    tagslist = tags.encode('utf-8').split(',')
+    retval = []
+
+    for tag in tagslist:
+        retval.append(tag.strip())
+
+    return retval
 
 def do_import(tumblog_name, xml_file, custom_tags):
     dom = minidom.parse(xml_file)
@@ -168,7 +176,7 @@ def do_import(tumblog_name, xml_file, custom_tags):
         post['tags'] = [x.firstChild.nodeValue.encode('utf-8', 'xmlcharrefreplace') for x in item.getElementsByTagName('category') if x.getAttribute('domain') == 'post_tag']
 
         if custom_tags:
-            post['tags'].append(custom_tags.encode('utf-8'))
+            post['tags'] += parse_custom_tags(custom_tags)
 
         if app.debug:
             print post
