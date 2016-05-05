@@ -98,10 +98,15 @@ header .header-copyright a {
     -wekbit-border-radius: 10px;
 }
 
-
 .flash {
     background: #cdf;
     padding: 20px;
     font-size: 15px;
     color: #346;
 }
+
+.with-margins {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+

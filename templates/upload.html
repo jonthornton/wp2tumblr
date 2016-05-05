@@ -9,12 +9,16 @@
             Please select the Wordpress export XML file you'd like to import. Visit Wordpress.org for more information about <a href="http://en.support.wordpress.com/export/">exporting a Wordpress blog</a>.
         </div>
 
-        <form method="post" action="/upload" enctype="multipart/form-data" id="upload-form">
-            <div>
+        <form class="pure-form" method="post" action="/upload" enctype="multipart/form-data" id="upload-form">
+            <div class="with-margins">
                 <input type="file" name="wordpress_xml" />
             </div>
 
-            <div>
+            <div class="with-margins">
+                <input type="text" name="custom_tags" placeholder="Custom tags"/>
+            </div>
+
+            <div class="with-margins">
                 <input type="hidden" name="tumblog_name" value="{{ tumblog_name }}" />
                 <button type="submit" class="pure-button pure-button-primary">Submit</button>
             </div>
