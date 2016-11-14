@@ -11,11 +11,12 @@
 
 import datetime
 from xml.dom import minidom
+from xml.parsers.expat import ExpatError
 # import types
 
 from flask import Flask
 from flask import g, session, request, url_for, flash
-from flask import redirect, render_template
+from flask import redirect, render_template, Markup
 from flask_oauthlib.client import OAuth
 import pytumblr
 
@@ -111,11 +112,15 @@ def upload():
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        # try:
-        post_count = do_import(tumblog_name, request.files['wordpress_xml'], custom_tags)
-        # except Exception, detail:
-        #     print 'XML file must be well-formed. You\'ll need to edit the file to fix the problem.'
-        #     print detail
+        try:
+            post_count = do_import(tumblog_name, request.files['wordpress_xml'], custom_tags)
+        except ExpatError, e:
+            message = Markup('wp2tumblr couldn\'t read your Wordpress XML file. \
+                You\'ll need to fix the file. \
+                <a target="_blank" href="https://docs.acquia.com/article/troubleshooting_wordpress_export_xml_file_validation">\
+                Click here for more information.')
+            flash(message)
+            return redirect(url_for('index'))
 
         if 'LOG_FILE' in app.config:
             userinfo = g.tumblr.info()
