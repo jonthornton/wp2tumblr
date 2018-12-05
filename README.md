@@ -1,11 +1,10 @@
+# This project is abandonded
+
+Tumblr is no longer the same company and community it was when I wrote this application, and I decided to stop supporting it in 2018. You're free to continue using the code on your own.
+
 # Import a Wordpress Blog into Tumblr: wp2tumblr
 
-
 wp2tumblr is a simple [Flask](http://flask.pocoo.org/docs/) app that will import a Wordpress XML export into Tumblr with publishing dates intact.
-
-## Alpha Version
-
-This app is under active development and has minimal testing. Use at your own risk.
 
 ## Requirements
 
